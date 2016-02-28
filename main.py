@@ -1,6 +1,5 @@
 from src import Browser
 from src.PageObjects import main_search_page
-import json
 import os
 
 Browser = Browser.Browser()
@@ -19,16 +18,14 @@ for j in range(2):# range(page.number_of_results_pages): # range(1):  #
     page = page.go_to_next_result_page()
 print(scraped)
 print('pobrano dane ')
-for i in range(len(scraped)):
-    json_file.append(json.dumps(scraped[i].__dict__))
-    print (json_file)
+
  # os.pathrealpath(__file__)) represent script file path
 fileName = os.path.dirname(os.path.realpath(__file__))+'scrapedData2.json'
 print(fileName)
 file = open(fileName, 'w')
-for JSON in json_file:
-    file.writelines(JSON)
-    print(JSON)
+print(scraped[1].to_json())
+for i in range(len(scraped)):
+    file.writelines(scraped[i].to_json())
 file.close()
 
 

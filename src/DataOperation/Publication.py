@@ -1,3 +1,6 @@
+import json
+
+
 class Publciation:
     def __init__(self):
 
@@ -26,3 +29,6 @@ class Publciation:
         for each in self.bibliography:
             to_return.append(each)
         return to_return
+
+    def to_json(self):
+        return json.dumps(self, default=lambda o: o.__dict__, sort_keys=True, indent=4)
