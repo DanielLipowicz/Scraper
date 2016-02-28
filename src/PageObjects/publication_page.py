@@ -1,4 +1,4 @@
-from src import Publication
+from src.DataOperation import Publication
 
 
 class PublicationPage:
