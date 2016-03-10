@@ -39,8 +39,8 @@ def create_file_path(file_name='newFile'):
 
 # stat main functionality
 # save to JSON object format
-def save_to_file(scraped):
-    file_name = create_file_path('scraped.json')
+def save_to_file(scraped, file_name="scraped"):
+    file_name = create_file_path(file_name+".json")
 #  that could doesn't exist
     scraped_len = len(scraped)-1
     print(scraped_len, 'scraped len')
@@ -51,12 +51,13 @@ def save_to_file(scraped):
 
 
 #  sample data scraping
-def scrap_page(Browser):
+def scrap_page(Browser, keyword):
+    Browser.get_sarching_page()
     page = main_search_page.MainSearchPage(Browser)
-    page = page.search_by_keyword("analiza fundamentalna")
+    page = page.search_by_keyword(keyword)
     scraped = []
-    for j in range(1):  # range(page.number_of_results_pages): # range(1):  #
-        for i in range(2):  # range(len(page.results)):
+    for j in range(page.number_of_results_pages):  # range(page.number_of_results_pages): # range(1):  #
+        for i in range(len(page.results)):  # range(len(page.results)):
             # create publication_page; scrap publication data; kill publication_page
             publication_page = page.go_to_result_index(i)
             scraped.append(publication_page.create_publication())
