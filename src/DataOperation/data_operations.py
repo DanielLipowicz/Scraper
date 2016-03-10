@@ -1,10 +1,11 @@
 import os.path
 import sys
+import codecs
 from src.PageObjects import main_search_page
 
 
 def create_file_and_set_json_starting_brackets(file_name):
-    file = open(file_name, 'w')
+    file = open(file_name, 'w', encoding='utf-8')
     file.writelines('{\n')
     return file
 
@@ -14,19 +15,20 @@ def close_file_and_set_json_ending_bracets(file):
     file.close()
 
 
+def transform_publication_to_json_objcet(publication):
+
+    json_object = str('"publication": \n' + publication.to_json())
+    return json_object
+
+
 def write_scraped_data_to_file(file, scraped_data):
     scraped_len = len(scraped_data)-1
     for i in range(scraped_len+1):
         print(i, 'iteracja ')
+        file.writelines(transform_publication_to_json_objcet(scraped_data[i]))
         if scraped_data[i] != scraped_data[scraped_len]:  # not last element
-            file.writelines('"publication": \n')
-            file.writelines(scraped_data[i].to_json())
-            file.writelines(", \n")
+            file.writelines(', \n')  # file expect next json object
             print('1')
-        else:
-            file.writelines('"publication": \n')  # last element
-            file.writelines(scraped_data[i].to_json())
-            print('2')
 
 
 def create_file_path(file_name='newFile'):
@@ -34,13 +36,16 @@ def create_file_path(file_name='newFile'):
     print(file_path_name)
     return file_path_name
 
+
 # stat main functionality
+# save to JSON object format
 def save_to_file(scraped):
     file_name = create_file_path('scraped.json')
-
+#  that could doesn't exist
     scraped_len = len(scraped)-1
-    file = create_file_and_set_json_starting_brackets(file_name)
     print(scraped_len, 'scraped len')
+#  until here
+    file = create_file_and_set_json_starting_brackets(file_name)
     write_scraped_data_to_file(file, scraped)
     close_file_and_set_json_ending_bracets(file)
 

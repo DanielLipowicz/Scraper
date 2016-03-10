@@ -3,7 +3,6 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/Scraper.iml" filepath="$PROJECT_DIR$/.idea/Scraper.iml" />
-      <module fileurl="file://$USER_HOME$/PycharmProjects/Scraper/.idea/Scraper.iml" filepath="$USER_HOME$/PycharmProjects/Scraper/.idea/Scraper.iml" />
     </modules>
   </component>
 </project>

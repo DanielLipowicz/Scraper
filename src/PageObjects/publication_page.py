@@ -18,6 +18,8 @@ class PublicationPage:
         publication.title = self.article_title.text
         publication.year = self.article_year.text
 
+
+
         for i in range(len(self.article_author_elements)):
             publication.authors.append(self.article_author_elements[i].text)
 
