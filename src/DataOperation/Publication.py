@@ -32,7 +32,5 @@ class Publciation:
 
     def to_json(self):
         to_json = json.dumps(self, default=lambda o: o.__dict__, sort_keys=True, indent=4, ensure_ascii=False)
-        print(to_json)
-        print('####################')
-        print(self.__dict__)
+
         return str(to_json)

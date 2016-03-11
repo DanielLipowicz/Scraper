@@ -24,11 +24,10 @@ def transform_publication_to_json_objcet(publication):
 def write_scraped_data_to_file(file, scraped_data):
     scraped_len = len(scraped_data)-1
     for i in range(scraped_len+1):
-        print(i, 'iteracja ')
+        #  print(i, 'iteracja ')
         file.writelines(transform_publication_to_json_objcet(scraped_data[i]))
         if scraped_data[i] != scraped_data[scraped_len]:  # not last element
             file.writelines(', \n')  # file expect next json object
-            print('1')
 
 
 def create_file_path(file_name='newFile'):
