@@ -1,14 +1,24 @@
 from src import Browser
 
-from src.DataOperation import data_operations
+from src.DataOperation import scraping_data_operations
+from src.DataOperation import json_open
+from src.DataOperation import readed_data_operation
 
+keywords = ["analiza danych", "data warehouse", "hurtownie danych", "analiza ekonometryczna", "ekonometria"]
 keywords = ["big data", "data mining", "analiza danych", "data warehouse", "hurtownie danych", "analiza ekonometryczna",
             "ekonometria"]
 Browser = Browser.Browser()
 for keyword in keywords:
     print(keyword, ' starts-4')
-    scraped = data_operations.scrap_page(Browser, keyword)
-    data_operations.save_to_file(scraped, keyword)
+    scraped = scraping_data_operations.scrap_page(Browser, keyword)
+    scraping_data_operations.save_to_file(scraped, keyword)
     print(keyword, ' ends')
-# data_operations.file_path()
+scraping_data_operations.file_path()
+#
+# data = json_open.read_json_file("data/ekonometria.json")
+# print(type(data))
+# print(data.keys())
+# print(len(data['publication']))
+# readed_data_operation.read_all_publication(data)
+
 print('end')

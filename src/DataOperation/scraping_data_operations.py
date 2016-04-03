@@ -15,7 +15,7 @@ def close_file_and_set_json_ending_bracets(file):
     file.close()
 
 
-def transform_publication_to_json_objcet(publication):
+def transform_publication_to_json_object(publication):
 
     json_object = str('"publication": \n' + publication.to_json())
     return json_object
@@ -25,7 +25,7 @@ def write_scraped_data_to_file(file, scraped_data):
     scraped_len = len(scraped_data)-1
     for i in range(scraped_len+1):
         #  print(i, 'iteracja ')
-        file.writelines(transform_publication_to_json_objcet(scraped_data[i]))
+        file.writelines(transform_publication_to_json_object(scraped_data[i]))
         if scraped_data[i] != scraped_data[scraped_len]:  # not last element
             file.writelines(', \n')  # file expect next json object
 

@@ -2,13 +2,13 @@ import json
 
 
 class Publciation:
-    def __init__(self):
+    def __init__(self, title=None, authors=[], year=None, key_words=[], bibliography=[]):
 
-        self.title = None
-        self.authors = []
-        self.year = None
-        self.key_words = []
-        self.bibliography = []
+        self.title = title
+        self.authors = authors
+        self.year = year
+        self.key_words = key_words
+        self.bibliography = bibliography
 
     def print_publication(self, i):
         print('lp. ', i)
@@ -17,6 +17,10 @@ class Publciation:
         print(self.year)
         print(self.key_words)
         print(self.bibliography)
+
+    def to_json(self):
+        to_json = json.dumps(self, default=lambda o: o.__dict__, sort_keys=True, indent=4, ensure_ascii=False)
+        return str(to_json)
 
     def return_list(self):
         to_return = []
@@ -29,8 +33,3 @@ class Publciation:
         for each in self.bibliography:
             to_return.append(each)
         return to_return
-
-    def to_json(self):
-        to_json = json.dumps(self, default=lambda o: o.__dict__, sort_keys=True, indent=4, ensure_ascii=False)
-
-        return str(to_json)
