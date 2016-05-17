@@ -1,6 +1,5 @@
 from src.DataOperation import Publication
 
-
 class PublicationPage:
     def __init__(self, browser):
         self.browser = browser
@@ -20,9 +19,7 @@ class PublicationPage:
         publication.title = self.article_title.text
         publication.year = self.article_year.text
         authors_len = int((len(self.article_author_elements))/2)
-        print(authors_len)
         for i in range(authors_len):
-
             publication.authors.append(self.article_author_elements[i].text)
 
         for i in range(len(self.article_keywords)):
@@ -30,4 +27,5 @@ class PublicationPage:
 
         for i in range(len(self.article_bibliography)):
             publication.bibliography.append(self.article_bibliography[i].text)
+        self.browser.db.insert_one_if_doesnt_exist(publication.__dict__)
         return publication

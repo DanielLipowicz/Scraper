@@ -5,13 +5,12 @@ from src.DataOperation import json_open
 from src.DataOperation import readed_data_operation
 
 keywords = ["analiza danych", "data warehouse", "hurtownie danych", "analiza ekonometryczna", "ekonometria"]
-keywords = ["big data", "data mining", "analiza danych", "data warehouse", "hurtownie danych", "analiza ekonometryczna",
-            "ekonometria"]
+keywords = ["hurtownie danych", "analiza ekonometryczna",
+            "ekonometria"]  # "big data", "data mining", "analiza danych","data warehouse",
 Browser = Browser.Browser()
 for keyword in keywords:
     print(keyword, ' starts-4')
     scraped = scraping_data_operations.scrap_page(Browser, keyword)
-    scraping_data_operations.save_to_file(scraped, keyword)
     print(keyword, ' ends')
 scraping_data_operations.file_path()
 #

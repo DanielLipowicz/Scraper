@@ -22,6 +22,15 @@ class Publciation:
         to_json = json.dumps(self, default=lambda o: o.__dict__, sort_keys=True, indent=4, ensure_ascii=False)
         return str(to_json)
 
+    def json_dumps(self):
+        to_json = json.dumps(self, default=lambda o: o.__dict__, sort_keys=True, indent=4, ensure_ascii=False)
+        print(to_json)
+        return to_json
+
+    def json_encode(self):
+        js = json.JSONEncoder(self)
+        return js
+
     def return_list(self):
         to_return = []
         to_return.append(self.title)

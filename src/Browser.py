@@ -1,7 +1,6 @@
 from selenium import webdriver
 from selenium.webdriver.support.ui import Select
-
-
+from src.databases import mogodbConfig
 class Browser:
     def __init__(self):
         #  ### in case when phantom JS is not installed
@@ -9,7 +8,7 @@ class Browser:
         self.bazekonURL = "http://bazekon.icm.edu.pl/bazekon/search/article.action"
         # ### in case when phantomJS is installed
         # self.driver = webdriver.Phantomjs()
-
+        self.db = mogodbConfig.mongoConnection()
         self.reset_waiting_time()
         self.driver.set_window_position(960, 0, windowHandle='current')
         self.driver.set_window_size(960, 1040, windowHandle='current')
