@@ -2,13 +2,14 @@ import json
 
 
 class Publciation:
-    def __init__(self, title=None, authors=[], year=None, key_words=[], bibliography=[]):
+    def __init__(self):
 
-        self.title = title
-        self.authors = authors
-        self.year = year
-        self.key_words = key_words
-        self.bibliography = bibliography
+        self.title = None
+        self.authors = []
+        self.year = None
+        self.key_words = []
+        self.bibliography = []
+        self.print_publication(1)
 
     def print_publication(self, i):
         print('lp. ', i)

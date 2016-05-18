@@ -6,7 +6,7 @@ json = {"key_words": "SADSA", "title": "Algorytm Gale´a-Shapleya i jego uogóln
 
 
 class mongoConnection:
-    def __init__(self, database='test', collection='scrap1'):
+    def __init__(self, database='test', collection='scrap2'):
         self.db = client[database]
         self.collection = self.db[collection]
         self.connection_test()

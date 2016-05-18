@@ -59,7 +59,7 @@ def scrap_page(Browser, keyword):
         for i in range(len(page.results)):  # range(len(page.results)):
             # create publication_page; scrap publication data; kill publication_page
             publication_page = page.go_to_result_index(i)
-            scraped.append(publication_page.create_publication())
+            publication_page.create_publication()
             page.driver.back()
             page.get_refresh_page_object()
         page = page.go_to_next_result_page()

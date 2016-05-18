@@ -14,7 +14,7 @@ class PublicationPage:
         self.browser.reset_waiting_time()
 
     def create_publication(self):
-
+        publication = None
         publication = Publication.Publciation()
         publication.title = self.article_title.text
         publication.year = self.article_year.text
@@ -27,5 +27,7 @@ class PublicationPage:
 
         for i in range(len(self.article_bibliography)):
             publication.bibliography.append(self.article_bibliography[i].text)
+        print(publication.__dict__)
         self.browser.db.insert_one_if_doesnt_exist(publication.__dict__)
+
         return publication
