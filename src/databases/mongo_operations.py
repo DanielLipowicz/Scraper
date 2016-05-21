@@ -1,5 +1,6 @@
 from src.databases import mogodbConfig
 from src.data_visualisation import pyplot_usage
+from src.DataOperation import select_operations
 
 
 
@@ -19,15 +20,6 @@ def find_in_database_by_keyword(conn, keyword, to_find='_id'):
     return result
 
 
-def get_all_keywords_related(conn, keyword):
-    related_keywords = []
-    for i in conn.collection.find({'key_words:': keyword},{"key_words":1, "_id":0}):
-        for j in i:
-            print(j['key_words'])
-            related_keywords.append(j)
-    return related_keywords
-
-
 def get_publications_with_keyword(conn, keyword):
     publication_id_table = find_in_database_by_keyword(conn, keyword, '_id')
     keywords_table = find_in_database_by_keyword(conn, keyword, "key_words")
@@ -43,39 +35,22 @@ def get_connected_publication(conn, connectet_with_keyword):
 
 
 def get_density_of_keywords(keywords):
-    density_list = {}
-    for keyword in keywords:
-        density_list[keyword] =density_list.get(keyword, 0) + 1
-    order_density = []
-    print('a',density_list)
-    #  print(density)
-    # for i in sorted(list.keys()):
-    #     x = density[i]
-    #     order_density.append([x, i])
-
-    return sorted(density_list)
+    density_of_keywords = {}
+    set_keywords = set(keywords)
+    for keyword in set_keywords:
+        keyword_quantity = keywords.count(keyword)
+        density_of_keywords.update({keyword: keyword_quantity})
+    return density_of_keywords
 
 
-keywords = ["Big Data", "Hurtownie danych", "Analiza ekonometryczna",
-            "Ekonometria"]
-keywords_data = []
-for i in range(3):
-    print(keywords[i])
-    data = get_publications_with_keyword(con, keywords[i])
+def get_data_about_keyword(keyword):
+    print(keyword)
+    data = select_operations.get_all_keywords_related(con, keyword)
     print('data ', data)
-    density_of_keyword = get_density_of_keywords(data)
-    keywords_with_density_bigger_than_one = []
-    for element in density_of_keyword:
-        print('el', element)
-        # if element[1] >= 2:
-        #     keywords_with_density_bigger_than_one.append(element)
-    print('dentisity ', density_of_keyword)
-    print('dentisity >2 ',keywords_with_density_bigger_than_one)
-    keywords_data.append(density_of_keyword)
+    quantity_keywords = get_density_of_keywords(data)
+    for each in list(quantity_keywords.keys()):
+        if quantity_keywords[each]>2:
+            print(each)
+            print(quantity_keywords[each])
+    return quantity_keywords
 
-
-
-#word = get_connected_keywords(con, "Data Mining")
-
-
-# print(word)

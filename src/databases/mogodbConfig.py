@@ -2,7 +2,6 @@ import pymongo
 
 client = pymongo.MongoClient()
 client = pymongo.MongoClient('92.222.68.207', 27017)
-json = {"key_words": "SADSA", "title": "Algorytm Gale´a-Shapleya i jego uogólnienie", "year": "2005"}
 
 
 class mongoConnection:
