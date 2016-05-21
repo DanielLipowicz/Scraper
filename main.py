@@ -39,7 +39,6 @@ for each in data_to_process:
 
 # scraper end
 #
-
 # data = json_open.read_json_file("data/ekonometria.json")
 # print(type(data))
 # print(data.keys())
