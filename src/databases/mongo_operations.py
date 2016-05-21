@@ -1,64 +1,76 @@
 from src.databases import mogodbConfig
-import numpy as pn
-import matplotlib.pyplot as plt
+from src.data_visualisation import pyplot_usage
+
 
 
 def select_distinct_key_words(collection):
     list = []
     for i in collection.distinct("key_words"):
         list.append(i)
-
     return list
-
 con = mogodbConfig.mongoConnection()
 # keywords_base = select_distinct_key_words(con.collection)
 
 
-def find_key_word_in_database(conn, keyword, select):
+def find_in_database_by_keyword(conn, keyword, to_find='_id'):
     result = []
-    for i in conn.collection.find({"key_words": keyword}, {"key_words": 1}):
-        for j in i[select]:
-            result.append(j)
+    for i in conn.collection.find({"key_words": keyword}, {"key_words": 1, to_find:1}):
+        result.append(i[to_find])
     return result
 
 
-def get_connected_keywords(conn, keyword):
-    keywords_table = find_key_word_in_database(conn, keyword, "key_words")
+def get_all_keywords_related(conn, keyword):
+    related_keywords = []
+    for i in conn.collection.find({'key_words:': keyword},{"key_words":1, "_id":0}):
+        for j in i:
+            print(j['key_words'])
+            related_keywords.append(j)
+    return related_keywords
+
+
+def get_publications_with_keyword(conn, keyword):
+    publication_id_table = find_in_database_by_keyword(conn, keyword, '_id')
+    keywords_table = find_in_database_by_keyword(conn, keyword, "key_words")
     result = list(set(keywords_table))
     result.sort()
-
-    # plt.plot(order_density[:])
+    print('get_publications_with_keyword result: ',result )
     return result
 
 
 def get_connected_publication(conn, connectet_with_keyword):
-    result = find_key_word_in_database(conn, connectet_with_keyword, "_id")
+    result = find_in_database_by_keyword(conn, connectet_with_keyword, "_id")
     return result
 
-def get_dentisy_of_keyword(list):
-    density = {}
-    for item in list:
-        print(item)
-        density[item] = density.get(item, 0) + 1
+
+def get_density_of_keywords(keywords):
+    density_list = {}
+    for keyword in keywords:
+        density_list[keyword] =density_list.get(keyword, 0) + 1
     order_density = []
+    print('a',density_list)
+    #  print(density)
+    # for i in sorted(list.keys()):
+    #     x = density[i]
+    #     order_density.append([x, i])
 
-    print(density)
+    return sorted(density_list)
 
-    for i in sorted(density.keys()):
-        x = density[i]
-        order_density.append([x, i])
-    return order_density
-
-# for i in con.collection.find({"key_words": "Ekonometria"}, {"key_words": 1, "objectID": 1}):
-#     print(i)
 
 keywords = ["Big Data", "Hurtownie danych", "Analiza ekonometryczna",
             "Ekonometria"]
 keywords_data = []
 for i in range(3):
-    data = get_connected_keywords(con, keywords[i])
-    density_of_keyword = get_dentisy_of_keyword(data)
-    print(density_of_keyword)
+    print(keywords[i])
+    data = get_publications_with_keyword(con, keywords[i])
+    print('data ', data)
+    density_of_keyword = get_density_of_keywords(data)
+    keywords_with_density_bigger_than_one = []
+    for element in density_of_keyword:
+        print('el', element)
+        # if element[1] >= 2:
+        #     keywords_with_density_bigger_than_one.append(element)
+    print('dentisity ', density_of_keyword)
+    print('dentisity >2 ',keywords_with_density_bigger_than_one)
     keywords_data.append(density_of_keyword)
 
 

@@ -11,20 +11,12 @@ class mongoConnection:
         self.collection = self.db[collection]
         self.connection_test()
 
-    def connection_test(self):
+    @staticmethod
+    def connection_test():
         try:
-            client.server_info()  # force connection on a request as the
-            # connect=True parameter of MongoClient seems
-            # to be useless here
+            client.server_info()
             print(client.database_names())
-            # db = client['test']
-            # test_collection = db['test1']
-            # posts = db.posts
-            # post_id = test_collection.insert_one(json).inserted_id
-
-            # print (test_collection)
         except pymongo.errors.ServerSelectionTimeoutError:
-            # do whatever you need
             print(err)
 
     def insert_one_object(self, objectJSON):
@@ -41,6 +33,6 @@ class mongoConnection:
             print("record already exist")
             return "record already exist"
 
-    def find_in_colection(self, find={}):
+    def find_in_collection(self, find={}):
         for i in self.collection.find(find):
             print(i)

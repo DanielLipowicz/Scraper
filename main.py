@@ -2,7 +2,7 @@ from src import Browser
 
 from src.DataOperation import scraping_data_operations
 from src.DataOperation import json_open
-from src.DataOperation import readed_data_operation
+from src.DataOperation import select_operations
 
 #
 # scraper
@@ -28,6 +28,6 @@ scrap_data()
 # print(type(data))
 # print(data.keys())
 # print(len(data['publication']))
-# readed_data_operation.read_all_publication(data)
+# select_operations.read_all_publication(data)
 
 print('end')
