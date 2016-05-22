@@ -33,10 +33,11 @@ for i in range(len(keywords)):
     data_to_process.append(key_words_data_procesing.key_word(keywords[i]))
 
 for each in data_to_process:
-    print(each.keyword)
+    # print(each.keyword)
     each.related_keywords = mongo_operations.get_data_about_keyword(each.keyword)
-    print(each.related_keywords)
+    # print(each.related_keywords)
 
+key_words_data_procesing.merge_two_related_keyword_dictionary(data_to_process[0], data_to_process[1])
 # scraper end
 #
 # data = json_open.read_json_file("data/ekonometria.json")
