@@ -1,7 +1,19 @@
 import os.path
 import sys
 import codecs
+from src import Browser
 from src.PageObjects import main_search_page
+
+
+# scraper
+#
+def scrap_data(keywords):
+    browser = Browser.Browser()
+    for keyword in keywords:
+        print(keyword, ' starts:')
+        scrap_page(browser, keyword)
+        print(keyword, ' ends')
+# scraper end
 
 
 def create_file_and_set_json_starting_brackets(file_name):

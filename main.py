@@ -1,50 +1,17 @@
-from src import Browser
-
 from src.DataOperation import scraping_data_operations
-from src.DataOperation import json_open
-from src.DataOperation import select_operations
-from src.databases import mongo_operations
-from src.DataOperation import key_words_data_procesing
-from src.data_visualisation import pyplot_usage as plot
+from src.DataOperation import key_words_data_procesing as data_processing
 
-#
-# scraper
-#
 
-# should stay somewhere in code / everything in code works and it's fine
-# def scrap_data():
-#     keywords = ["analiza danych", "data warehouse", "hurtownie danych", "analiza ekonometryczna", "ekonometria"]
-#     keywords = ["big data", "hurtownie danych", "analiza ekonometryczna",
-#                 "ekonometria"]  # "data mining", "analiza danych","data warehouse",
-#     browser = Browser.Browser()
-#     for keyword in keywords:
-#         print(keyword, ' starts-4')
-#         scraped = scraping_data_operations.scrap_page(browser, keyword)
-#         print(keyword, ' ends')
-#     scraping_data_operations.file_path()
-# scrap_data()
-data_to_process = []
+keywords = ["Big Data", "Hurtownie danych"]
+# scraping update data to MongoDb database
 
-keywords = ["Big Data", "Hurtownie danych", "Analiza ekonometryczna",
-            "Ekonometria"]
+scraping_data_operations.scrap_data(keywords)
 
-keywords_data = []
-for i in range(len(keywords)):
-    data_to_process.append(key_words_data_procesing.key_word(keywords[i]))
+# data processing and visualisation
+# should to define another keywords set which may to compare
+keywords = ["Big Data", "Hurtownie danych"]
 
-for each in data_to_process:
-    each.related_keywords = mongo_operations.get_data_about_keyword(each.keyword)
-
-row_data_to_plot = key_words_data_procesing.merge_two_related_keyword_dictionary(data_to_process[2], data_to_process[1])
-filtered_data_to_plot = key_words_data_procesing.filter_data_list_by_density(row_data_to_plot, 3)
-print(filtered_data_to_plot)
-plot.plot_two_keyword_data_list(filtered_data_to_plot)
-# scraper end
-#
-# data = json_open.read_json_file("data/ekonometria.json")
-# print(type(data))
-# print(data.keys())
-# print(len(data['publication']))
-# select_operations.read_all_publication(data)
+data_processing.data_visualisation(keywords)
 
 print('end')
+
