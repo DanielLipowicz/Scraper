@@ -5,6 +5,7 @@ from src.DataOperation import json_open
 from src.DataOperation import select_operations
 from src.databases import mongo_operations
 from src.DataOperation import key_words_data_procesing
+from src.data_visualisation import pyplot_usage as plot
 
 #
 # scraper
@@ -29,15 +30,15 @@ keywords = ["Big Data", "Hurtownie danych", "Analiza ekonometryczna",
 
 keywords_data = []
 for i in range(len(keywords)):
-    print(keywords[i])
     data_to_process.append(key_words_data_procesing.key_word(keywords[i]))
 
 for each in data_to_process:
-    # print(each.keyword)
     each.related_keywords = mongo_operations.get_data_about_keyword(each.keyword)
-    # print(each.related_keywords)
 
-key_words_data_procesing.merge_two_related_keyword_dictionary(data_to_process[0], data_to_process[1])
+row_data_to_plot = key_words_data_procesing.merge_two_related_keyword_dictionary(data_to_process[2], data_to_process[1])
+filtered_data_to_plot = key_words_data_procesing.filter_data_list_by_density(row_data_to_plot, 3)
+print(filtered_data_to_plot)
+plot.plot_two_keyword_data_list(filtered_data_to_plot)
 # scraper end
 #
 # data = json_open.read_json_file("data/ekonometria.json")

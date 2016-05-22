@@ -21,11 +21,10 @@ def find_in_database_by_keyword(conn, keyword, to_find='_id'):
 
 
 def get_publications_with_keyword(conn, keyword):
-    publication_id_table = find_in_database_by_keyword(conn, keyword, '_id')
+    # publication_id_table = find_in_database_by_keyword(conn, keyword, '_id')
     keywords_table = find_in_database_by_keyword(conn, keyword, "key_words")
     result = list(set(keywords_table))
     result.sort()
-    print('get_publications_with_keyword result: ',result )
     return result
 
 
@@ -44,13 +43,7 @@ def get_density_of_keywords(keywords):
 
 
 def get_data_about_keyword(keyword):
-    print(keyword)
     data = select_operations.get_all_keywords_related(con, keyword)
-    print('data ', data)
     quantity_keywords = get_density_of_keywords(data)
-    for each in list(quantity_keywords.keys()):
-        if quantity_keywords[each]>2:
-            print(each)
-            print(quantity_keywords[each])
     return quantity_keywords
 
